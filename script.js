@@ -35,13 +35,14 @@ const Transaction = {
   add(transaction) {
     Transaction.all.push(transaction);
     
-    App.reaload();
+    App.reload();
   },
   // Remover uma transação
   remove(index) {
     Transaction.all.splice(index, 1);
 
-    App.reaload();
+    App.reload();
+
   },
 
   incomes() {
@@ -212,7 +213,7 @@ const Form = {
     event.preventDefault();
     // verificar se todas as informações foram preenchidas
     try {
-      //   Form.validadeFields();
+      Form.validadeFields();
       // formatar os dados para salvar
       const transaction = Form.formtValues();
       // salvar
@@ -230,16 +231,16 @@ const Form = {
 const App = {
   init() {
     // for para coleção de objetos da transação
-    Transaction.all.forEach((transaction, index) => {
+      Transaction.all.forEach((transaction, index) => {
 
       DOM.addTransaction(transaction, index);
 
-      Storage.set(Transaction.all);
     });
+    Storage.set(Transaction.all);
 
     DOM.updateBalance();
   },
-  reaload() {
+  reload() {
     DOM.clearTransactions();
     App.init();
   },
